@@ -7,6 +7,9 @@ pygame.init()
 # Pantalla
 screen = pygame.display.set_mode((800, 600))
 
+# Fondo
+# background = pygame.image.load('background.png')
+
 # Titulo e icono
 pygame.display.set_caption("Space Invaders")
 icono = pygame.image.load('astronave.png')
@@ -22,7 +25,7 @@ playerX_change = 0
 enemyImg = pygame.image.load('extraterrestre.png')
 enemyX = random.randint(0, 800)
 enemyY = 50
-enemyX_change = 0.3
+enemyX_change = 0.1
 enemyY_change = 40
 
 
@@ -39,6 +42,8 @@ while running:
 
     # color de fondo RGB
     screen.fill((0, 0, 0))
+    # Imagen de fondo
+    # screen.blit(background, (0,0))
 
     for event in pygame.event.get():
         # Proceso de cierre
