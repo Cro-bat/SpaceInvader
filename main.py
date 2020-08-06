@@ -22,7 +22,8 @@ playerX_change = 0
 enemyImg = pygame.image.load('extraterrestre.png')
 enemyX = random.randint(0, 800)
 enemyY = 50
-enemyX_change = 0
+enemyX_change = 0.3
+enemyY_change = 40
 
 
 def player(x, y):
@@ -54,12 +55,21 @@ while running:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                 playerX_change = 0
 
+    # Revisar limites de pantalla (jugador)
     playerX += playerX_change
-
     if playerX <= 0:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
+
+    # Revisar limites de pantalla (enemigo)
+    enemyX += enemyX_change
+    if enemyX <= 0:
+        enemyX_change = 0.1
+        enemyY += enemyY_change
+    elif enemyX >= 736:
+        enemyX_change = -0.1
+        enemyY += enemyY_change
 
     player(playerX, playerY)
     enemy(enemyX, enemyY)
