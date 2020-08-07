@@ -28,6 +28,14 @@ enemyY = 50
 enemyX_change = 0.1
 enemyY_change = 40
 
+# Bala - No se puede ver en pantalla hasta disparar
+bulletImg = pygame.image.load('bala.png')
+bulletX = 0
+bulletY = 480
+bulletX_change = 0
+bulletY_change = 0.5
+bullet_state = "ready"
+
 
 def player(x, y):
     screen.blit(playerImg, (round(x), round(y)))
@@ -35,6 +43,12 @@ def player(x, y):
 
 def enemy(x, y):
     screen.blit(enemyImg, (round(x), round(y)))
+
+
+def fire_bullet(x, y):
+    global bullet_state
+    bullet_state = "fire"
+    screen.blit(bulletImg, (int(x + 16), int(y + 10)))
 
 
 running = True
@@ -56,6 +70,12 @@ while running:
                 playerX_change = -0.3
             if event.key == pygame.K_RIGHT:
                 playerX_change = 0.3
+            if event.key == pygame.K_SPACE:
+                if bullet_state == "ready":
+                    #Obtener cordenada en X de la nave
+                    bulletX = playerX
+                    fire_bullet(playerX, bulletY)
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                 playerX_change = 0
@@ -75,6 +95,11 @@ while running:
     elif enemyX >= 736:
         enemyX_change = -0.1
         enemyY += enemyY_change
+
+    # Movimiento de bala
+    if bullet_state == "fire":
+        fire_bullet(bulletX, bulletY)
+        bulletY -= bulletY_change
 
     player(playerX, playerY)
     enemy(enemyX, enemyY)
